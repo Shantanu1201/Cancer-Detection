@@ -1,0 +1,13 @@
+ncancer = read.csv("Genome_nums(R).csv")
+ncancer.feat = ncancer
+ncancer.feat$Final <- NULL
+library(cluster)
+df <- scale(ncancer.feat)
+res.fanny <- fanny(df, 2)
+res.fanny
+d <- table(res.fanny$cluster,ncancer$Final)
+table(res.fanny$cluster,ncancer$Final)
+library(factoextra)
+fviz_cluster(res.fanny, ellipse.type = "norm",
+              palette = "jco", ggtheme = theme_minimal(),
+              legend = "right")

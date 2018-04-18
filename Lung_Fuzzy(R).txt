@@ -1,0 +1,14 @@
+lcancer = read.csv("Lung_Cancer(R).csv")
+lcancer.feat = lcancer
+lcancer.feat$status <- NULL
+ldf <- scale(lcancer.feat)
+library(cluster)
+res.fanny <- fanny(ldf, 2)
+res.fanny
+d <- table(res.fanny$cluster,lcancer$status)
+table(res.fanny$cluster,lcancer$status)
+sum(diag(d))/sum(d)*100
+library(factoextra)
+fviz_cluster(res.fanny, ellipse.type = "norm",
+              palette = "jco", ggtheme = theme_minimal(),
+              legend = "right")

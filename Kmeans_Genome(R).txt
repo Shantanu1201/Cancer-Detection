@@ -1,0 +1,14 @@
+ncancer = read.csv("Genome_nums(R).csv")
+ncancer.feat = ncancer
+ncancer.feat$Final <- NULL
+df <- scale(ncancer.feat)
+library("factoextra")
+set.seed(123)
+fviz_nbclust(df, kmeans, method = "silhouette")+
+  labs(subtitle = "Silhouette method")
+km.res <- kmeans(df, 2, nstart = 25)
+km.res
+d <- table(km.res$cluster,ncancer$Final)
+table(km.res$cluster,ncancer$Final)
+(sum(diag(d))/sum(d))*100
+fviz_cluster(km.res, ncancer.feat)
